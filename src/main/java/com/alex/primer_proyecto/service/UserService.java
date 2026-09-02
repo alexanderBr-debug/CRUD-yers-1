@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import com.alex.primer_proyecto.dto.UserRequestDTO;
 import com.alex.primer_proyecto.dto.UserResponseDTO;
 import com.alex.primer_proyecto.entity.UserEntity;
+import com.alex.primer_proyecto.exception.RecursoDuplicadoexception;
+import com.alex.primer_proyecto.exception.RecursoNoEncontradoException;
 import com.alex.primer_proyecto.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -26,24 +28,23 @@ public class UserService{
     @Param request
     @return
 */ 
-public UserResponseDTO createUSer(UserRequestDTO  request) throws Exception{
-    Optional<UserEntity> userOptional = userRepository.findFirstByEmail(request.getEmail());
+public UserResponseDTO createUSer(UserRequestDTO  request) {
+    UserEntity userCreate = userRepository.findFirstByEmail(request.getEmail())
+    .ifPresent(()-> new RecursoDuplicadoexception("El email ya existe: " + request.getEmail()))
+    ;
 
-    if(userOptional.isPresent()){
-        throw new Exception("el email ya existe");
-    }
-
-    UserEntity user = new UserEntity();
-    user.setNombre(request.getNombre());
-    user.setEmail(request.getEmail());
-    user.setDireccion(request.getDireccion());
-    userRepository.save(user);
+    
+    UserEntity userCreate = new UserEntity();
+    userCreate.setNombre(request.getNombre());
+    userCreate.setEmail(request.getEmail());
+    userCreate.setDireccion(request.getDireccion());
+    userRepository.save(userCreate);
 
     UserResponseDTO response = new UserResponseDTO();
-    response.setId(user.getIdUsuario());
-    response.setEmail(user.getEmail());
-    response.setNombre(user.getNombre());
-    response.setDireccion(user.getDireccion());
+    response.setId(userCreate.getIdUsuario());
+    response.setEmail(userCreate.getEmail());
+    response.setNombre(userCreate.getNombre());
+    response.setDireccion(userCreate.getDireccion());
     return response;
 }
 
@@ -94,11 +95,12 @@ public UserResponseDTO createUSer(UserRequestDTO  request) throws Exception{
 
 
         //metodo para actualizar un usuario por su ID
-        public UserResponseDTO updateUserById(Long id, UserRequestDTO request) throws Exception {
-            Optional<UserEntity> userOptional = userRepository.findById(id);
-            if(userOptional.isPresent()){
+        public UserResponseDTO updateUserById(Long id, UserRequestDTO request)  {
+            UserEntity idUser = userRepository.findById(id)
+            .orElseThrow(() -> new RecursoNoEncontradoException("Usuario no encontrado con id: " + id)); 
+            
 
-                UserEntity user = userOptional.get();
+                UserEntity user = idUser;
                 user.setNombre(request.getNombre());
                 user.setEmail(request.getEmail());
                 user.setDireccion(request.getDireccion());
@@ -111,9 +113,8 @@ public UserResponseDTO createUSer(UserRequestDTO  request) throws Exception{
                 response.setDireccion(user.getDireccion());
                 return response;
                 
-            } else {
-                throw new Exception("Usuario no encontrado");
-            }
+            
+            
         }
 
     }

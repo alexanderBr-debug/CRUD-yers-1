@@ -37,7 +37,7 @@ public class UsersController {
     //metodo para crear usarios de tipo post 
 
     @PostMapping("/create")
-    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO request) throws Exception{
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO request) throws Exception {
         UserResponseDTO response = userService.createUSer(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
