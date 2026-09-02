@@ -5,7 +5,7 @@ package com.alex.primer_proyecto.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 
 import org.springframework.stereotype.Service;
@@ -29,9 +29,10 @@ public class UserService{
     @return
 */ 
 public UserResponseDTO createUSer(UserRequestDTO  request) {
-    UserEntity userCreate = userRepository.findFirstByEmail(request.getEmail())
-    .ifPresent(()-> new RecursoDuplicadoexception("El email ya existe: " + request.getEmail()))
-    ;
+ userRepository.findFirstByEmail(request.getEmail())
+    .ifPresent(email -> {
+        throw new RecursoDuplicadoexception("El email ya existe: " + request.getEmail());
+    });
 
     
     UserEntity userCreate = new UserEntity();
@@ -65,42 +66,39 @@ public UserResponseDTO createUSer(UserRequestDTO  request) {
         return response;
     }
 
-        public UserResponseDTO seeUserByid(Long id)throws Exception{
-            Optional<UserEntity> userOptional = userRepository.findById(id);
-            if(userOptional.isPresent()){
-                UserEntity user = userOptional.get();
+        public UserResponseDTO seeUserByid(Long id){
+            return userRepository.findById(id)
+            .map(user -> {
+            
+            
                 UserResponseDTO response = new UserResponseDTO();
                 response.setId(user.getIdUsuario());
                 response.setEmail(user.getEmail());
                 response.setNombre(user.getNombre());
                 response.setDireccion(user.getDireccion());
                 return response;
-            } else {
-                throw new Exception("Usuario no encontrado");
-            }
-        }
+                    })
+                    .orElseThrow(() -> new RecursoNoEncontradoException("Usuario no encontrado con id: " + id));
+                }
 
         //metodo para eliminar un usuario por su ID
-        public String deleteUserByid (Long id) throws Exception{
-            Optional<UserEntity> userOptional = userRepository.findById(id);
-            if(userOptional.isPresent()){
-                userRepository.deleteById(id);
-                return "Usuario eliminado correctamente";
-                
+        public String deleteUserByid (Long id) {
+         return userRepository.findById(id)
+            .map(user -> {
+                userRepository.delete(user);
+                return "Usuario eliminado con exito";
+            })
+            .orElseThrow(() -> new RecursoNoEncontradoException("Usuario no encontrado con id: " + id));
             }
-            else{
-                throw new Exception("Usuario no encontrado");
-            }
-        }
+            
+        
 
 
         //metodo para actualizar un usuario por su ID
         public UserResponseDTO updateUserById(Long id, UserRequestDTO request)  {
-            UserEntity idUser = userRepository.findById(id)
-            .orElseThrow(() -> new RecursoNoEncontradoException("Usuario no encontrado con id: " + id)); 
-            
-
-                UserEntity user = idUser;
+              UserEntity user = userRepository.findById(id)
+            .orElseThrow(() -> new RecursoNoEncontradoException("Usuario no encontrado con id: " + id));
+             
                 user.setNombre(request.getNombre());
                 user.setEmail(request.getEmail());
                 user.setDireccion(request.getDireccion());
@@ -113,9 +111,7 @@ public UserResponseDTO createUSer(UserRequestDTO  request) {
                 response.setDireccion(user.getDireccion());
                 return response;
                 
-            
-            
-        }
+            }
 
     }
 

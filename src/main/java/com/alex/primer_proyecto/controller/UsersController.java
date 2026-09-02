@@ -37,7 +37,7 @@ public class UsersController {
     //metodo para crear usarios de tipo post 
 
     @PostMapping("/create")
-    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO request) throws Exception {
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserRequestDTO request) {
         UserResponseDTO response = userService.createUSer(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
@@ -53,20 +53,20 @@ public class UsersController {
 
     //metodo para ver un usuario por su ID
     @GetMapping("/see/{id}")
-    public ResponseEntity<UserResponseDTO> seeUserByid(@PathVariable Long id) throws Exception {
+    public ResponseEntity<UserResponseDTO> seeUserByid(@PathVariable Long id) {
         UserResponseDTO response = userService.seeUserByid(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     //metodo para eliminar un usuario por su ID
      @DeleteMapping("/delete/{id}")
-     public ResponseEntity<String> deleteUserById(@PathVariable Long id) throws Exception{
+     public ResponseEntity<String> deleteUserById(@PathVariable Long id) {
         String response = userService.deleteUserByid(id);
         return ResponseEntity.status(HttpStatus.OK).body(response);
      }
 
      @PutMapping("/put/{id}")
         
-        public ResponseEntity<UserResponseDTO> updateUserById(@PathVariable Long id, @RequestBody UserRequestDTO request) throws Exception{
+        public ResponseEntity<UserResponseDTO> updateUserById(@PathVariable Long id, @RequestBody UserRequestDTO request) {
             UserResponseDTO response = userService.updateUserById(id, request);
             return ResponseEntity.status(HttpStatus.OK).body(response);
      
