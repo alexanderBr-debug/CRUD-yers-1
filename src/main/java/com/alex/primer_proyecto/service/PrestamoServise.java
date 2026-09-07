@@ -1,7 +1,7 @@
 package com.alex.primer_proyecto.service;
 
 
-import java.time.LocalDateTime;
+
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,8 +38,7 @@ public class PrestamoServise{
             throw new LibroNoDisponibleException("libro no esta disponible");
         }
         
-        Prestamo prestamo = new Prestamo();
-            
+             Prestamo prestamo = new Prestamo();           
             prestamo.setNombreUsuario(request.getNombreUsuario());
             prestamo.setFechaPrestamo(prestamo.getFechaPrestamo());
             libro.setDisponible(false);
@@ -47,8 +46,6 @@ public class PrestamoServise{
             libroRepository.save(libro);
             prestamoRepository.save(prestamo);
             
-
-
             PrestamoResponseDTO response = new PrestamoResponseDTO();
             response.setId(prestamo.getId());
             response.setNombreUsuario(prestamo.getNombreUsuario());
@@ -56,8 +53,30 @@ public class PrestamoServise{
             response.setNombreAutor(libro.getAutor().getNombre());
             response.setFechaPrestamo(prestamo.getFechaPrestamo());
             return  response;
+    }
 
+    public PrestamoResponseDTO update(PrestamoRequestDTO request,Long id ){
+
+        Libro libro = libroRepository.findById(request.getIdLibro())
+        .orElseThrow(() -> new RecursoNoEncontradoException("el libro no se encuentra en la base de datos"));
         
+        Prestamo prestamo = prestamoRepository.findById(id)
+        .orElseThrow(() -> new RecursoNoEncontradoException("libro no encontrado"));
+
+        prestamo.setNombreUsuario(request.getNombreUsuario());
+        prestamo.setFechaPrestamo(prestamo.getFechaPrestamo());
+        libro.setDisponible(true);
+        prestamo.setLibroEntity(libro);
+        libroRepository.save(libro);
+        prestamoRepository.save(prestamo);
+
+        PrestamoResponseDTO response = new PrestamoResponseDTO();
+            response.setId(prestamo.getId());
+            response.setNombreUsuario(prestamo.getNombreUsuario());
+            response.setTituloLibro(libro.getTitulo());
+            response.setNombreAutor(libro.getAutor().getNombre());
+            response.setFechaPrestamo(prestamo.getFechaPrestamo());
+            return  response;    
     }
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alex.primer_proyecto.dto.AutorRequestDTO;
 import com.alex.primer_proyecto.dto.AutorResponseDTO;
+import com.alex.primer_proyecto.dto.LibroResponseDTO;
 import com.alex.primer_proyecto.service.AutorServise;
 
 import lombok.AllArgsConstructor;
@@ -62,4 +63,12 @@ public class AutorController {
       AutorResponseDTO response = autorServise.updateAutor(request,id);
       return ResponseEntity.status(HttpStatus.CREATED).body(response);
      }
-}
+
+     @GetMapping ("/{id}/libros")
+     public ResponseEntity<List<LibroResponseDTO>> allLibros(@PathVariable Long id){
+      List<LibroResponseDTO> response = autorServise.allLibros(id);
+      return ResponseEntity.status(HttpStatus.CREATED).body(response);
+      
+     }
+   }
+     

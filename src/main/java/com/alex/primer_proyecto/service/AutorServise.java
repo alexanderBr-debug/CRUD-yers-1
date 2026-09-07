@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.alex.primer_proyecto.dto.AutorRequestDTO;
 import com.alex.primer_proyecto.dto.AutorResponseDTO;
+import com.alex.primer_proyecto.dto.LibroResponseDTO;
 import com.alex.primer_proyecto.entity.Autor;
+import com.alex.primer_proyecto.entity.Libro;
 import com.alex.primer_proyecto.exception.RecursoDuplicadoException;
 import com.alex.primer_proyecto.exception.RecursoNoEncontradoException;
 import com.alex.primer_proyecto.repository.AutorRepository;
+import com.alex.primer_proyecto.repository.LibroRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +27,7 @@ import lombok.Data;
 public class AutorServise {
 
     private final AutorRepository autorRepository;
+    private final LibroRepository libroRepository;
 
     // METODO PARA CREAR USUARIOS
     public AutorResponseDTO createAutor(AutorRequestDTO request){
@@ -43,8 +47,6 @@ public class AutorServise {
         response.setNacionalidad(autor.getNacionalidad());
         response.setId(autor.getId());
         return response;
-
-
     }
 
     // METODO PARA BUSCAR AUTOR POR NOMBRE
@@ -53,16 +55,12 @@ public class AutorServise {
 
         Autor autor = autorRepository.findFirstByNombreIgnoreCase(nombre)
         .orElseThrow(() -> new RecursoNoEncontradoException("el autor no existe en la base de datos"));
-
-
-            
+           
             AutorResponseDTO response = new AutorResponseDTO();
             response.setNombre(autor.getNombre());
             response.setNacionalidad(autor.getNacionalidad());
             response.setId(autor.getId());
             return response;
-
-
         };
 
         //metodo para mostrar todos 
@@ -112,6 +110,25 @@ public class AutorServise {
                 response.setNacionalidad(autor.getNacionalidad());
                 return  response;
             
+        }
+
+        public List<LibroResponseDTO> allLibros(Long id){
+
+            Autor autor = autorRepository.findById(id)
+            .orElseThrow(()  -> new RecursoNoEncontradoException("autor no existente"));
+            List<LibroResponseDTO> response = new ArrayList<>();
+
+            for (Libro libro :  autor.getLibros()) {
+                LibroResponseDTO dto = new LibroResponseDTO();
+
+                dto.setId(libro.getId());
+                dto.setTitulo(libro.getTitulo());
+                dto.setDisponible(libro.isDisponible());
+                dto.setAñoPublicacion(libro.getAñoPublicacion());
+                dto.setNombreAutor(autor.getNombre());
+                response.add(dto);               
+            }
+            return  response;
         }
 
         

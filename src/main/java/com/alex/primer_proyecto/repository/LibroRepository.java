@@ -14,4 +14,5 @@ import com.alex.primer_proyecto.entity.Libro;
 public interface LibroRepository extends JpaRepository<Libro, Long>{
 
     Optional<Libro> findFirstByTituloIgnoreCase(String titulo);
+   
 }
