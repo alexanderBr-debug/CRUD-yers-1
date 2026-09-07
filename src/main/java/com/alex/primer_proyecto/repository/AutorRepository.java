@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.alex.primer_proyecto.entity.AutorEntity;
+import com.alex.primer_proyecto.entity.Autor;
 
-public interface AutorRepository extends JpaRepository<AutorEntity, Long> {
-    Optional<AutorEntity> findFirstByNombreIgnoreCase(String nombre);
+public interface AutorRepository extends JpaRepository<Autor, Long> {
+    Optional<Autor> findFirstByNombreIgnoreCase(String nombre);
 }

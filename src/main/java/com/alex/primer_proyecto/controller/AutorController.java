@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,4 +55,11 @@ public class AutorController {
         
      }
 
+     //metodo para actualizar
+
+     @PutMapping ("/update/{id}")
+     public ResponseEntity<AutorResponseDTO> updateAutor (@RequestBody AutorRequestDTO request,@PathVariable Long id){
+      AutorResponseDTO response = autorServise.updateAutor(request,id);
+      return ResponseEntity.status(HttpStatus.CREATED).body(response);
+     }
 }

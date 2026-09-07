@@ -1,12 +1,6 @@
 package com.alex.primer_proyecto.entity;
 
-
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,15 +9,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class LibroEntity{
+public class Libro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "id")
     private Long id;
+
+    @Column (name = "titulo")
     private String titulo;
-    private String AñoPublicacion;
+
+    @Column (name = "añoPublicacion")
+    private Integer añoPublicacion;
+
+    @Column (name = "disponible")
     private boolean disponible;
 
     @ManyToOne
-    private AutorEntity autorEntity;
-
+    @JoinColumn(name = "autor_id")
+    private Autor autor;
 }
