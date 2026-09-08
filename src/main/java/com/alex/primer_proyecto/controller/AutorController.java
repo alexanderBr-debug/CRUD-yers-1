@@ -18,6 +18,7 @@ import com.alex.primer_proyecto.dto.AutorResponseDTO;
 import com.alex.primer_proyecto.dto.LibroResponseDTO;
 import com.alex.primer_proyecto.service.AutorServise;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController 
@@ -29,7 +30,9 @@ public class AutorController {
 
     // METODO PARA CREAR AUTOR
     @PostMapping ("/create")
-    public ResponseEntity<AutorResponseDTO> createAutor(@RequestBody AutorRequestDTO request){
+
+    // valid revisa antes de que lleguen 
+    public ResponseEntity<AutorResponseDTO> createAutor(@Valid @RequestBody AutorRequestDTO request){
         AutorResponseDTO response =autorServise.createAutor(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

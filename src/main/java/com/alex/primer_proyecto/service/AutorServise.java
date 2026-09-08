@@ -3,6 +3,7 @@ package com.alex.primer_proyecto.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -28,6 +29,7 @@ public class AutorServise {
 
     private final AutorRepository autorRepository;
     private final LibroRepository libroRepository;
+    private final PasswordEncoder passwordEncoder;
 
     // METODO PARA CREAR USUARIOS
     public AutorResponseDTO createAutor(AutorRequestDTO request){
@@ -40,6 +42,7 @@ public class AutorServise {
         Autor autor = new Autor();
         autor.setNombre(request.getNombre().trim());
         autor.setNacionalidad(request.getNacionalidad().trim());
+        autor.setPassWord(passwordEncoder.encode(request.getPassWord()));
         autorRepository.save(autor);
 
         AutorResponseDTO response = new AutorResponseDTO();

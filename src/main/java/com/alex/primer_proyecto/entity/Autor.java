@@ -18,6 +18,8 @@ public class Autor {
     @Column (name = "id")
     private Long id;
 
+    private String passWord;
+
     @Column (name = "nombre")
     private String nombre;
 
@@ -26,4 +28,6 @@ public class Autor {
 
     @OneToMany(mappedBy = "autor")
     private List<Libro> libros;
+
+    
 }
