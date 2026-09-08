@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration 
-public class SegurityFiltre {
+public class SecurityFiltre {
 
     @Bean 
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -15,7 +15,7 @@ public class SegurityFiltre {
             .csrf(csrf -> csrf.disable())
             // decimo que sesta ruta es segura y no necesita login
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/autores/create").permitAll()
+                .requestMatchers("/login/hola").permitAll()
                 //las demas si necesitan login
                 .anyRequest().authenticated()
             );

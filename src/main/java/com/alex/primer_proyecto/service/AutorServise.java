@@ -42,7 +42,6 @@ public class AutorServise {
         Autor autor = new Autor();
         autor.setNombre(request.getNombre().trim());
         autor.setNacionalidad(request.getNacionalidad().trim());
-        autor.setPassWord(passwordEncoder.encode(request.getPassWord()));
         autorRepository.save(autor);
 
         AutorResponseDTO response = new AutorResponseDTO();

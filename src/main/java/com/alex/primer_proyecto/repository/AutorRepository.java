@@ -9,5 +9,6 @@ import com.alex.primer_proyecto.entity.Autor;
 
 public interface AutorRepository extends JpaRepository<Autor, Long> {
     Optional<Autor> findFirstByNombreIgnoreCase(String nombre);
+    Optional<Autor> findFirstByEmail(String email );
     
 }
