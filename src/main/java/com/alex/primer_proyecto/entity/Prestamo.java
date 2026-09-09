@@ -36,6 +36,7 @@ public class Prestamo{
    @JoinColumn (name = "libro-id")
    private Libro libroEntity;
 
+   //creamos un metod para obtener la hora dia segundos etc
    @PrePersist
     protected void onCreate() {
         this.fechaPrestamo = LocalDateTime.now();

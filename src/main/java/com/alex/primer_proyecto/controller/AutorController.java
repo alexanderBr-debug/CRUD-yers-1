@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,22 +19,30 @@ import com.alex.primer_proyecto.dto.AutorResponseDTO;
 import com.alex.primer_proyecto.dto.LibroResponseDTO;
 import com.alex.primer_proyecto.service.AutorServise;
 
-import jakarta.validation.Valid;
+
 import lombok.AllArgsConstructor;
 
+
+//creamos un controller para autores
 @RestController 
 @AllArgsConstructor 
 @RequestMapping ("/autores")
 public class AutorController {
 
+   /*  instanciamos autorservise ya que necesitarmos los metodos que el tiene ya que el controler solo 
+   recibe y manda */
     private final AutorServise autorServise;
     
 
     // METODO PARA CREAR AUTOR
     @PostMapping ("/create")
 
-    // valid revisa antes de que lleguen 
-    public ResponseEntity<AutorResponseDTO> createAutor(@Valid @RequestBody AutorRequestDTO request){
+    /*aqui resivimos la peticion del cliente,antes de convertir el json a un objeto(normamente dto) hacemos
+    unas validaciones con valited el revisa el json llegado y este mismo debera cumplir con unos requisitos 
+    impuestos por nosotros si los cumple ay si los convertira a objeto con requestbody */
+    public ResponseEntity<AutorResponseDTO> createAutor(@Validated  @RequestBody AutorRequestDTO request){
+
+      //le pasamos ese dto al servise y el nos respondera con response y simplemente retornamos 
         AutorResponseDTO response =autorServise.createAutor(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

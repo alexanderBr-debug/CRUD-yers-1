@@ -13,6 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Autor {
+
+    //decimos que es de tipo id Y autoicrementable con geretion tipe
+    /*column sirve para poner los nombres de las columnas en la base de datos ya que sino esta misma pondra 
+    nombres genericos bien feos*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "id")
@@ -29,6 +33,8 @@ public class Autor {
     @Column (name = ("email"))
     private String email;
 
+    /*una relacion simple mappe le dice a spring "auto es la llave foranea de esta relacion" esto evita
+    duplicar llaves */
     @OneToMany(mappedBy = "autor")
     private List<Libro> libros;
 
