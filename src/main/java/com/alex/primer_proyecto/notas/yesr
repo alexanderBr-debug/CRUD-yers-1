@@ -1,0 +1,7 @@
+explicare el flujo de este proyecto explicando mas o menos lo que hace,nuestras rutas estan bloqueadas debido a una depedencia
+que bloquea todas las rutas pero podemos modificar eso con un metodo y pusimos la ruta del login publica y ponemos las otras pasar solo con autenticacion
+cuando el usuario se loguee esta siendo vigilado con umos requesitos que pusimos en el json,sino cumpke con esos requesitos no 
+llegara la peticion al controller pero si si pasa covertiremos el json a un odjeto usando requestboby de preferencia tipo dto,
+ese dto pasara por algunas validaciones y si todo esta correcto se le generara un token a ese usurio.cuando el usuario intente ingresar de
+nuevo nos mandara ese token y nosotros haremos las respectivas validaciones y filtros.se que esta muy general pero ps eso hace,me faltaron mas capas 
+como el controller,servise,etc pero sera luego

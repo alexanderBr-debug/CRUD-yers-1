@@ -36,10 +36,12 @@ public class JwtService {
     }
 
     //hacemos validaciones para ver si ya expiro el token po si la fira es correcta
-    public boolean esTokenValido(String token) {
+    public boolean esTokenValido(String token,String emailEsperado) {
     try {
         Claims claims = extraerClaims(token);
-        return !claims.getExpiration().before(new Date());
+        String emailDelToken = claims.getSubject();
+        boolean noEstaExpirado = !claims.getExpiration().before(new Date() );
+        return emailDelToken.equals(emailEsperado) && noEstaExpirado;
     } catch (Exception e) {
         return false;
     }
