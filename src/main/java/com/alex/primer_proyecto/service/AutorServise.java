@@ -17,11 +17,12 @@ import com.alex.primer_proyecto.exception.RecursoNoEncontradoException;
 import com.alex.primer_proyecto.repository.AutorRepository;
 import com.alex.primer_proyecto.repository.LibroRepository;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 
-@AllArgsConstructor
+@RequiredArgsConstructor 
 
 @Data
 @Service
@@ -29,7 +30,7 @@ public class AutorServise {
 
     private final AutorRepository autorRepository;
     private final LibroRepository libroRepository;
-    private final PasswordEncoder passwordEncoder;
+    
 
     // METODO PARA CREAR USUARIOS
     public AutorResponseDTO createAutor(AutorRequestDTO request){

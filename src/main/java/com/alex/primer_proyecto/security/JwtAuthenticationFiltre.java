@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+//esto es lo primero de todo el proyecto
 /*ahora haremos los filtros y verificaciones de tokens,lo primero que haremos es decirle a 
 spring que esta clase va hacer un component que lo que hace es registrar esta clase en un contendor de spring para
 poderla inyectarla dentro securityFiltre o otra. */

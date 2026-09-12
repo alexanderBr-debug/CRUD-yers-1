@@ -1,8 +1,5 @@
 package com.alex.primer_proyecto.service;
 
-
-
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,12 +12,13 @@ import com.alex.primer_proyecto.exception.RecursoNoEncontradoException;
 import com.alex.primer_proyecto.repository.LibroRepository;
 import com.alex.primer_proyecto.repository.PrestamoRepository;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+
 
 @Service 
-@AllArgsConstructor 
-@Data 
+@RequiredArgsConstructor
+
 public class PrestamoServise{
 
     private final PrestamoRepository prestamoRepository;

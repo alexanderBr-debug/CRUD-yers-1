@@ -13,12 +13,13 @@ import com.alex.primer_proyecto.dto.PrestamoRequestDTO;
 import com.alex.primer_proyecto.dto.PrestamoResponseDTO;
 import com.alex.primer_proyecto.service.PrestamoServise;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @RestController 
-@AllArgsConstructor 
 @Data 
+@RequiredArgsConstructor 
 @RequestMapping ("prestamo")
 public class PrestamoController{
 

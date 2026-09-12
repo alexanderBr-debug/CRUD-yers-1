@@ -16,13 +16,10 @@ import com.alex.primer_proyecto.entity.Autor;
 import com.alex.primer_proyecto.entity.Libro;
 import com.alex.primer_proyecto.repository.AutorRepository;
 import com.alex.primer_proyecto.repository.LibroRepository;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Service 
-@AllArgsConstructor 
-@Data 
+@RequiredArgsConstructor 
 public class LibroServise {
 
 

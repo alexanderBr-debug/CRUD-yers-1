@@ -1,12 +1,13 @@
 package com.alex.primer_proyecto.dto;
 
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data 
-public class LoginRequestDTO {
+public class UserLoginRequestDTO {
 
     @NotBlank (message = ("no puede ser nulo"))
     @Size (min = 2,max = 20,message = ("debe estar dentro del rango"))
@@ -14,4 +15,7 @@ public class LoginRequestDTO {
 
     @Email (message = ("formato email"))
     private String email;
+
+    @NotBlank (message = ("obligatorio"))
+    private String name;
 }

@@ -19,13 +19,14 @@ import com.alex.primer_proyecto.dto.AutorResponseDTO;
 import com.alex.primer_proyecto.dto.LibroResponseDTO;
 import com.alex.primer_proyecto.service.AutorServise;
 
+import lombok.RequiredArgsConstructor;
 
-import lombok.AllArgsConstructor;
+
 
 
 //creamos un controller para autores
 @RestController 
-@AllArgsConstructor 
+@RequiredArgsConstructor 
 @RequestMapping ("/autores")
 public class AutorController {
 

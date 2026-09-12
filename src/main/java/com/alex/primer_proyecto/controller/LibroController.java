@@ -18,12 +18,13 @@ import com.alex.primer_proyecto.dto.LibroRequestDTO;
 import com.alex.primer_proyecto.dto.LibroResponseDTO;
 import com.alex.primer_proyecto.service.LibroServise;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @RestController 
 @Data 
-@AllArgsConstructor 
+@RequiredArgsConstructor 
 @RequestMapping ("/LibroController")
 public class LibroController {
 
